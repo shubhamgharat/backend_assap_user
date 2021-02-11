@@ -22,6 +22,21 @@ const userSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    gender: {
+        type: String,
+        required: true,
+        min:1
+    },
+    phoneNo: {
+        type: String,
+        required: true,
+        min: 6
+    },
+    dob: {
+        type: String,
+        required: true,
+        min: 6
     }
 });
 
