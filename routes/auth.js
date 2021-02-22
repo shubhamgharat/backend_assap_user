@@ -18,11 +18,11 @@ router.post('/register', async (req,res) => {
     //validating data
     //const{ error } = Joi.validate(req.body,schema);
     const {error} = registerValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(200).json({ success: false, error: error.details[0].message});
 
     //CHEcking if email already exists
     const emailExist = await User.findOne({ email: req.body.email});
-    if(emailExist) return res.status(400).send('Email already exist');
+    if(emailExist) return res.status(200).json({ success: false, error: "Email already exists"});
 
     //hashing
     const salt = await bcrypt.genSalt(10);
@@ -48,35 +48,39 @@ router.post('/register', async (req,res) => {
         });
     })
     .catch(err => {
-      res.status(500).json({
+      res.status(200).json({
           message: 'Unable to create User'
       });
     });
   
     }catch(err){
         
-        res.status(400).send(err);
+        res.status(200).send(err);
     }
 });
 
 router.post('/login', async (req,res) => {
     //validating data
     const {error} = loginValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(200).json({ success: false, error: error.details[0].message});
     
     //checking if email exist
     const user = await User.findOne({ email: req.body.email});
-    if(!user) return res.status(400).send('Email not found');
+    if(!user) return res.status(200).json({ success: false, error: "Email not found"});
 
     //Password checking
     const vaidPass = await bcrypt.compare(req.body.password, user.password);
-    if(!vaidPass) return res.status(400).send('password incorrect');
+    if(!vaidPass) return res.status(200).json({ success: false, error: "Password incorrect"});
 
     //res.send('logged in!');
-
+    const patient = await User.findOne({ email: req.body.email});
+    console.log(patient);
     //create and assign a token
     const token = jwt.sign({_id: user._id}, 'AGSDFAjsg');
-    res.header('auth-token',token).send(token);
+    res.header('auth-token',token).json({ success: true,
+                                         token: token,
+                                         user: patient
+                                        });
 });
 
 
