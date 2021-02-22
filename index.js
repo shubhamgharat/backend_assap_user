@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 //Importing routes
 const authRoute = require('./routes/auth');
 const hospiRoute = require('./routes/hospAuth');
+const nearestRoute = require('./routes/nearest');
 
 //dotenv.config();
 
@@ -45,5 +46,6 @@ app.use(express.json());
 //Route middlewares
 app.use('/api/user', authRoute);
 app.use('/api/hospital', hospiRoute);
+app.use('/api/nearest',nearestRoute);
 
 app.listen(3000, () => console.log('Server up and running'));
