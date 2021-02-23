@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const Hospital = require('../model/Hospital');
+const Request = require('../model/Request');
+const User = require('../model/User');
 
 router.post('/', (req, res) => {
     Hospital.find({})
@@ -10,7 +12,9 @@ router.post('/', (req, res) => {
         const distance = (a, b) => (Math.PI / 180) * (a - b)
         const RADIUS_OF_EARTH_IN_KM = 6371
 
-
+        const userid = req.body.id;
+        const userr= await User.findOne({ _id: userid});
+        console.log(userr);
         for (var key in hospital) {
           if (hospital.hasOwnProperty(key)) {
 
@@ -58,10 +62,43 @@ router.post('/', (req, res) => {
             console.log("Hospitals : ", hospital[key])
             console.log("Nearest Hospital To Your Location : ", hospital[key]['name'])
             var stringToRender = "Nearest Hospital To Your Location : " + hospital[key]['name']
+            var answer= hospital[key]
           }
         }
+        console.log(answer);
         //res.render('index.ejs', { hospitalList: hospital, nearest: stringToRender })
-        res.status(200).send(stringToRender);
+
+        //making new request
+        const reque= new Request({
+          name: userr.name,
+          phoneNo: userr.phoneNo,
+          latitude: req.body.lat,
+          longitude: req.body.long,
+          for_whom: answer._id,
+          for_whom_name: answer.name
+
+        });
+        console.log(reque);
+        try{
+          reque.save()
+      .then(result => {
+          console.log("request created");
+          res.status(201).json({
+              success: true,
+              message: stringToRender
+          });
+      })
+      .catch(err => {
+        res.status(200).json({
+            success: false,
+            message: 'Unable to send request'
+        });
+      });
+      }catch(err){
+          
+          res.status(200).send(err);
+      }
+        //res.status(200).send(stringToRender);
       })
       .catch(error => console.error("GET Error : ", error))
   })

@@ -1,18 +1,19 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+require("dotenv/config");
 
 //Importing routes
 const authRoute = require('./routes/auth');
 const hospiRoute = require('./routes/hospAuth');
 const nearestRoute = require('./routes/nearest');
+const requestRoute = require('./routes/requests');
 
-//dotenv.config();
+
 
 //connect to DB
 mongoose.connect(
-    'mongodb+srv://shubham:gharat123@cluster0.dgvqs.mongodb.net/assap?retryWrites=true&w=majority',
+    process.env.DB_CONNECT,
 
 () => console.log('connected to db')
 );
@@ -47,5 +48,6 @@ app.use(express.json());
 app.use('/api/user', authRoute);
 app.use('/api/hospital', hospiRoute);
 app.use('/api/nearest',nearestRoute);
+app.use('/api/request',requestRoute);
 
 app.listen(3000, () => console.log('Server up and running'));
