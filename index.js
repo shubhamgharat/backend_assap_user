@@ -12,14 +12,20 @@ const nearestRoute = require("./routes/nearest");
 const requestRoute = require("./routes/requests");
 
 //connect to DB
+// mongoose.connect(
+//   process.env.DB_CONNECT,
+
+//   () => console.log("connected to db")
+// );
+
 mongoose.connect(
   process.env.DB_CONNECT,
-
-  () => console.log("connected to db")
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => console.log("Medichain Database connected")
 );
 
 app.get("/", (req, res) => {
-  res.status(200).json("Main Server for asap");
+  res.status(200).json({ message: "Main Server for asap" });
 });
 
 //middleware
