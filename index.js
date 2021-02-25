@@ -18,7 +18,7 @@ mongoose.connect(
   () => console.log("connected to db")
 );
 
-app.get("/api/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Main Server for asap");
 });
 
