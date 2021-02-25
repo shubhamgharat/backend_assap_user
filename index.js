@@ -1,53 +1,34 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
+var cors = require("cors");
+
+const mongoose = require("mongoose");
 require("dotenv/config");
-
+app.use(cors());
 //Importing routes
-const authRoute = require('./routes/auth');
-const hospiRoute = require('./routes/hospAuth');
-const nearestRoute = require('./routes/nearest');
-const requestRoute = require('./routes/requests');
-
-
+const authRoute = require("./routes/auth");
+const hospiRoute = require("./routes/hospAuth");
+const nearestRoute = require("./routes/nearest");
+const requestRoute = require("./routes/requests");
 
 //connect to DB
 mongoose.connect(
-    process.env.DB_CONNECT,
+  process.env.DB_CONNECT,
 
-() => console.log('connected to db')
+  () => console.log("connected to db")
 );
 
-// mongoose.connect('mongodb+srv://shubham:gharat123@cluster0.dgvqs.mongodb.net/assap?retryWrites=true&w=majority',
-// { useNewUrlParser: true,useUnifiedTopology: true  },()=>{
-//     console.log('Connected to DB')
-// })
-
-
-
-//neww
-// mongoose.connect("mongodb+srv://shubham:gharat123@cluster0.dgvqs.mongodb.net/<dbName>?retryWrites=true&w=majority",{
-//     dbName: "assap",
-//     useCreateIndex: true,
-//     useNewUrlParser: true,
-//     useFindAndModify: false,
-//     useUnifiedTopology: true,
-//     })
-//     .then((result)=>{
-//     console.log("Connected to Mongo")
-//     })  
-//     .catch((error)=>{
-//     console.log(error);
-// })
+app.get("/api/", (req, res) => {
+  res.send("Main Server for asap");
+});
 
 //middleware
 app.use(express.json());
 
-
 //Route middlewares
-app.use('/api/user', authRoute);
-app.use('/api/hospital', hospiRoute);
-app.use('/api/nearest',nearestRoute);
-app.use('/api/request',requestRoute);
+app.use("/api/user", authRoute);
+app.use("/api/hospital", hospiRoute);
+app.use("/api/nearest", nearestRoute);
+app.use("/api/request", requestRoute);
 
-app.listen(3000, () => console.log('Server up and running'));
+app.listen(4000, () => console.log("Server up and running"));
