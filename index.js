@@ -18,9 +18,9 @@ mongoose.connect(
   () => console.log("connected to db")
 );
 
-// app.get("/", (req, res) => {
-//   res.send("Main Server for asap");
-// });
+app.get("/", (req, res) => {
+  res.status(200).json("Main Server for asap");
+});
 
 //middleware
 app.use(express.json());
