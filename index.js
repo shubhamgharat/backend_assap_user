@@ -37,7 +37,7 @@ app.use("/api/hospital", hospiRoute);
 app.use("/api/nearest", nearestRoute);
 app.use("/api/request", requestRoute);
 
-// app.listen(3000, () => console.log("Server up and running"));
+// changes made for deploy
 app.listen(port, function () {
   console.log("app running on port 8080");
 });
