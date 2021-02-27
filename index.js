@@ -25,7 +25,7 @@ mongoose.connect(
 );
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Main Server for asap" });
+  res.status(200).json({ message: "Main Server for assap" });
 });
 
 //middleware

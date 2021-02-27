@@ -72,6 +72,7 @@ router.post("/", (req, res) => {
       }
       console.log(answer);
       //res.render('index.ejs', { hospitalList: hospital, nearest: stringToRender })
+      const beds = Math.floor(Math.random() * 6) + 1;
 
       //making new request
       const reque = new Request({
@@ -91,6 +92,8 @@ router.post("/", (req, res) => {
             console.log("request created");
             res.status(201).json({
               success: true,
+              hospital: answer,
+              beds: beds,
               message: stringToRender,
             });
           })
