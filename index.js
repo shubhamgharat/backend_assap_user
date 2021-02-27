@@ -37,4 +37,4 @@ app.use("/api/hospital", hospiRoute);
 app.use("/api/nearest", nearestRoute);
 app.use("/api/request", requestRoute);
 
-app.listen(4000, () => console.log("Server up and running"));
+app.listen(3000, () => console.log("Server up and running"));
