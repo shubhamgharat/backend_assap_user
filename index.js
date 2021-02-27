@@ -10,7 +10,7 @@ const authRoute = require("./routes/auth");
 const hospiRoute = require("./routes/hospAuth");
 const nearestRoute = require("./routes/nearest");
 const requestRoute = require("./routes/requests");
-
+var port = process.env.PORT || 8080;
 //connect to DB
 // mongoose.connect(
 //   process.env.DB_CONNECT,
@@ -37,4 +37,7 @@ app.use("/api/hospital", hospiRoute);
 app.use("/api/nearest", nearestRoute);
 app.use("/api/request", requestRoute);
 
-app.listen(3000, () => console.log("Server up and running"));
+// app.listen(3000, () => console.log("Server up and running"));
+app.listen(port, function () {
+  console.log("app running on port 8080");
+});
