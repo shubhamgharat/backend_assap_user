@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
           var latRad = toRadian(myLat);
           var arrayLatRad = toRadian(arrayLat);
 
-          // Haversine Formula
+          // Haversine Formula for calculating distance
           var a =
             Math.pow(Math.sin(dLat / 2), 2) +
             Math.pow(Math.sin(dLon / 2), 2) *
