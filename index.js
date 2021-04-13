@@ -39,5 +39,5 @@ app.use("/api/request", requestRoute);
 
 // changes made for deploy
 app.listen(port, function () {
-  console.log("app running on port 8080");
+  console.log("app running on port 8080 or 3000");
 });
