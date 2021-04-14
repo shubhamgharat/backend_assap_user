@@ -37,6 +37,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         min: 6
+    },
+    histo: {
+        type: String,
+        required: true,
+        min: 6
     }
 });
 
