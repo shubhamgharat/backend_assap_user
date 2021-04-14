@@ -38,11 +38,36 @@ const userSchema = new mongoose.Schema({
         required: true,
         min: 6
     },
-    histo: {
+    history: {
         type: String,
         required: true,
         min: 6
-    }
+    },
+    relative1: {
+        type: String,
+        default: "NA",
+       
+    },
+    relative1_no: {
+        type: String,
+        default: "NA",
+       
+    },
+    relative2: {
+        type: String,
+        default: "NA",
+        
+    },
+    relative2_no: {
+        type: String,
+        default: "NA",
+        
+    },
+    preferred_hosp: {
+        type: String,
+        default: "NA",
+        
+    },
 });
 
 

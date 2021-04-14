@@ -39,6 +39,7 @@ router.post("/register", async (req, res) => {
     gender: req.body.gender,
     phoneNo: req.body.phoneNo,
     dob: req.body.dob,
+    history: req.body.history,
   });
   console.log(user);
   try {
@@ -91,5 +92,34 @@ router.post("/login", async (req, res) => {
     .header("auth-token", token)
     .json({ success: true, token: token, user: patient });
 });
+
+
+
+router.post("/update", async(req, res)=> {
+  try {
+    await User.updateOne({_id: req.body.id},
+      {relative1: req.body.relative1,
+      relative1_no: req.body.relative1_no,
+      relative2: req.body.relative2,
+      relative2_no: req.body.relative2_no,
+      preferred_hosp: req.body.preferred_hosp})
+      .then((result) => {
+        console.log("preferences updated");
+        res.status(201).json({
+          success: true,
+          
+        });
+      })
+      .catch((err) => {
+          console.log(err);
+        res.status(200).json({
+          success: false,
+          message: "Unable to update preferences here",
+        });
+      });
+  } catch (err) {
+    res.status(200).send(err);
+  }
+})
 
 module.exports = router;

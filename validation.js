@@ -7,7 +7,8 @@ const registerValidation = data => {
         password: Joi.string().min(6).required(),
         gender: Joi.string().min(1).required(),
         phoneNo: Joi.string().min(6).required(),
-        dob: Joi.string().min(6).required()
+        dob: Joi.string().min(6).required(),
+        history: Joi.string().min(6).required()
     };
     return Joi.validate(data, schema);
     
@@ -34,7 +35,8 @@ const registerValidationHospital = data => {
         main_doc_name: Joi.string().min(6).required(),
         latitude: Joi.string().min(6).required(),
         
-        xyz: Joi.string().min(6).required()
+        xyz: Joi.string().min(6).required(),
+        beds: Joi.number().required()
     };
     return Joi.validate(data, schema);
     

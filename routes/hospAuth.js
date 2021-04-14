@@ -45,6 +45,7 @@ router.post("/register", async (req, res) => {
     latitude: req.body.latitude,
     // longi: req.user.longi,
     xyz: req.body.xyz,
+    beds: req.body.beds,
   });
   console.log(hospital);
   try {
@@ -96,5 +97,64 @@ router.post("/login", async (req, res) => {
     .header("auth-token", token)
     .json({ success: true, token: token, user: hosp });
 });
+
+
+router.post("/addbed", async(req, res)=> {
+    const hospii= await Hospital.findOne({_id: req.body.id });
+    const ans= hospii.beds + 1;
+    console.log(ans);
+    //res.send(ans);
+    try {
+      await Hospital.updateOne({_id: req.body.id},
+        {beds: ans})
+        .then((result) => {
+          console.log("hospital incremented");
+          res.status(201).json({
+            success: true,
+            
+          });
+        })
+        .catch((err) => {
+            console.log(err);
+          res.status(200).json({
+            success: false,
+            message: "Unable to update hospital here",
+          });
+        });
+    } catch (err) {
+      res.status(200).send(err);
+    }
+
+});
+
+
+router.post("/removebed", async(req, res)=> {
+  const hospii= await Hospital.findOne({_id: req.body.id });
+  const ans= hospii.beds - 1;
+  console.log(ans);
+  //res.send(ans);
+  try {
+    await Hospital.updateOne({_id: req.body.id},
+      {beds: ans})
+      .then((result) => {
+        console.log("hospital decremented");
+        res.status(201).json({
+          success: true,
+          
+        });
+      })
+      .catch((err) => {
+          console.log(err);
+        res.status(200).json({
+          success: false,
+          message: "Unable to update hospital here",
+        });
+      });
+  } catch (err) {
+    res.status(200).send(err);
+  }
+
+});
+
 
 module.exports = router;

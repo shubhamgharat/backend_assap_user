@@ -10,6 +10,8 @@ const authRoute = require("./routes/auth");
 const hospiRoute = require("./routes/hospAuth");
 const nearestRoute = require("./routes/nearest");
 const requestRoute = require("./routes/requests");
+const appointmentRoute = require("./routes/appointments");
+const hospiListRoute = require("./routes/hosplist");
 var port = process.env.PORT || 8080;
 //connect to DB
 // mongoose.connect(
@@ -21,7 +23,7 @@ var port = process.env.PORT || 8080;
 mongoose.connect(
   process.env.DB_CONNECT,
   { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log("Medichain Database connected")
+  () => console.log("Assap Database connected")
 );
 
 app.get("/", (req, res) => {
@@ -36,6 +38,8 @@ app.use("/api/user", authRoute);
 app.use("/api/hospital", hospiRoute);
 app.use("/api/nearest", nearestRoute);
 app.use("/api/request", requestRoute);
+app.use("/api/appointment", appointmentRoute);
+app.use("/api/listhospital",hospiListRoute);
 
 // changes made for deploy
 app.listen(port, function () {

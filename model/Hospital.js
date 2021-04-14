@@ -52,6 +52,10 @@ const hospitalSchema = new mongoose.Schema({
         type: String,
         required: true,
         min: 6
+    },
+    beds: {
+        type: Number,
+        required: true
     }
 });
 
