@@ -95,9 +95,11 @@ router.post("/login", async (req, res) => {
 
 
 
-router.post("/update", async(req, res)=> {
+router.post("/update/:id", async(req, res)=> {
+
+  console.log(req.body)
   try {
-    await User.updateOne({_id: req.body.id},
+    await User.updateOne({_id: req.params.id},
       {relative1: req.body.relative1,
       relative1_no: req.body.relative1_no,
       relative2: req.body.relative2,
