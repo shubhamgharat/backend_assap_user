@@ -107,7 +107,7 @@ router.get("/addbed/:id", async(req, res)=> {
     console.log(ans);
     //res.send(ans);
     try {
-      await Hospital.updateOne({_id: req.body.id},
+      await Hospital.updateOne({_id: req.params.id},
         {beds: ans})
         .then((result) => {
           console.log("hospital incremented");
@@ -137,7 +137,7 @@ router.get("/removebed/:id", async(req, res)=> {
   console.log(ans);
   //res.send(ans);
   try {
-    await Hospital.updateOne({_id: req.body.id},
+    await Hospital.updateOne({_id: req.params.id},
       {beds: ans})
       .then((result) => {
         console.log("hospital decremented");
