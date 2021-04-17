@@ -99,8 +99,10 @@ router.post("/login", async (req, res) => {
 });
 
 
-router.post("/addbed", async(req, res)=> {
-    const hospii= await Hospital.findOne({_id: req.body.id });
+router.get("/addbed/:id", async(req, res)=> {
+    const hospii= await Hospital.findOne({_id: req.params.id });
+    console.log(hospii.beds);
+    
     const ans= hospii.beds + 1;
     console.log(ans);
     //res.send(ans);
@@ -109,7 +111,7 @@ router.post("/addbed", async(req, res)=> {
         {beds: ans})
         .then((result) => {
           console.log("hospital incremented");
-          res.status(201).json({
+          res.status(200).json({
             success: true,
             
           });
@@ -128,8 +130,9 @@ router.post("/addbed", async(req, res)=> {
 });
 
 
-router.post("/removebed", async(req, res)=> {
-  const hospii= await Hospital.findOne({_id: req.body.id });
+router.get("/removebed/:id", async(req, res)=> {
+  const hospii= await Hospital.findOne({_id: req.params.id });
+  console.log(hospii.beds);
   const ans= hospii.beds - 1;
   console.log(ans);
   //res.send(ans);
@@ -156,5 +159,13 @@ router.post("/removebed", async(req, res)=> {
 
 });
 
+router.get('/getbeds/:id',async(req,res)=>{
+  const hospii= await Hospital.findOne({_id: req.params.id });
+  res.status(200).json({
+          success: true,
+          message: "beds",
+          data:hospii.beds
+        });
+})
 
 module.exports = router;

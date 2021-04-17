@@ -4,6 +4,7 @@ const Appointment = require("../model/Appointment");
 const User = require("../model/User");
 
 router.post("/booking", async (req, res) => {
+  console.log(req.body)
     const userid = req.body.uid;
     const userr = await User.findOne({ _id: userid });
     //console.log(userr);
@@ -52,11 +53,11 @@ router.post("/booking", async (req, res) => {
 
 });
 
-router.post("/update", async (req, res) => {
+router.get("/update/:id/:stat", async (req, res) => {
 
 
     try {
-        await Appointment.updateOne({_id: req.body.id},{stat: req.body.stat})
+        await Appointment.updateOne({_id: req.params.id},{stat: req.params.stat})
           .then((result) => {
             console.log("request updated");
             res.status(201).json({
@@ -78,4 +79,35 @@ router.post("/update", async (req, res) => {
  // console.log(updated);
 });
 
+router.get("/getappointments/:id",async(req,res)=>{
+  try {
+    const data =await Appointment.find({for_whom:req.params.id})
+    const count = await Appointment.find({ for_whom: req.params.id }).count();
+
+    console.log(data)
+    res.status(200).json({data,success:true,count})
+  } catch (error) {
+res.status(200).json({  success: false });
+  }
+})
+
+router.delete('/delete/:id',async(req,res)=>{
+  try {
+     Appointment.remove({ _id: req.params.id }, (err, request) => {
+       if (err) {
+         res.json({
+           success: false,
+           message: "Could not delete request",
+         });
+       } else
+         res.json({
+           success: true,
+           message: "Request removed",
+         });
+     });
+    
+  } catch (error) {
+    console.log(error)
+  }
+})
 module.exports = router;
