@@ -110,4 +110,11 @@ router.delete('/delete/:id',async(req,res)=>{
     console.log(error)
   }
 })
+
+router.get("/userappointment/:name", async(req, res) => {
+  const listt= await Appointment.find({name: req.params.name});
+  console.log(listt);
+  res.status(200).json({data:listt,success:true});
+})
+
 module.exports = router;
