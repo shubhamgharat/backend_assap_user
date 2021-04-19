@@ -27,7 +27,7 @@ mongoose.connect(
 );
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Main Server for assap" });
+  res.status(200).json({ message: "Main Server for assap: Version 2.1" });
 });
 
 //middleware
